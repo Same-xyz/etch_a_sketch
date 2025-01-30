@@ -1,20 +1,21 @@
-// Constants
+let selectedColor = null;
+const colourPicker = document.getElementById("colourPicker");
+
+colourPicker.addEventListener("input", () => {
+    const currentColor = document.getElementById("currentColor");
+    currentColor.textContent = colourPicker.value;
+    selectedColor = colourPicker.value;
+    console.log("selected color:", selectedColor);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     // Constants
     const container = document.querySelector(".container");
     const resizeButton = document.querySelector("#resizeButton");
     const MAX_GRID_SIZE = 100;
     const CONTAINER_SIZE = 600;
-
-    let selectedColor = "";
     
-    const colourPicker = document.getElementById("colourPicker");
-    colourPicker.addEventListener("input", () => {
-        const currentColor = document.getElementById("currentColor");
-        currentColor.textContent = colourPicker.value;
-        selectedColor = colourPicker.value;
-        console.log("selected color:", selectedColor);
-    });
+
 
 // Function to create the grid
 function createGrid(size) {
@@ -49,7 +50,6 @@ function createGrid(size) {
     square.addEventListener("mouseover", () => {
         square.style.backgroundColor = selectedColor ? selectedColor: getRandomColor();
       });
-  
     const currentOpacity = parseFloat(square.style.opacity) || 0;
     if (currentOpacity < 1) {
       square.style.opacity = currentOpacity + 0.2;
@@ -67,7 +67,12 @@ function createGrid(size) {
       alert("Please enter a valid number between 1 and 100.");
     }
   }
-  
+  const randomButton = document.querySelector(".randomColor");
+  randomButton.addEventListener("click", () => {
+    selectedColor = null;
+    console.log("Switched to random colors");
+});
+
   // Event listener for the resize button
   resizeButton.addEventListener("click", resizeGrid);
   
